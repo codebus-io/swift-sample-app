@@ -19,11 +19,13 @@ class LoginViewController: UIViewController, GPPSignInDelegate {
         signIn.shouldFetchGooglePlusUser = true
         signIn.shouldFetchGoogleUserEmail = true
         
-        signIn.clientID = "899577352192-dtj9ktde3sul1ndcijf4abehhitddqpm.apps.googleusercontent.com"
+        //899577352192-dtj9ktde3sul1ndcijf4abehhitddqpm.apps.googleusercontent.com
+        //sample-dtj9ktde3sul1ndcijf4abehhitddqpm
+        signIn.clientID = "ADD_YOUR_CLIEN_ID"
         signIn.scopes = [kGTLAuthScopePlusLogin,kGTLAuthScopePlusUserinfoEmail]
         signIn.delegate = self
         signIn.attemptSSO = false
-        signIn.keychainName = "sample-dtj9ktde3sul1ndcijf4abehhitddqpm"
+        signIn.keychainName = "ADD_A_KEYCHAIN_NAME"
     }
 
     override func didReceiveMemoryWarning() {
