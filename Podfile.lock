@@ -1,0 +1,22 @@
+PODS:
+  - google-plus-ios-sdk (1.7.1)
+  - XLForm (2.1.0)
+
+DEPENDENCIES:
+  - google-plus-ios-sdk (~> 1.7)
+  - XLForm (from `https://github.com/xmartlabs/XLForm.git`)
+
+EXTERNAL SOURCES:
+  XLForm:
+    :git: https://github.com/xmartlabs/XLForm.git
+
+CHECKOUT OPTIONS:
+  XLForm:
+    :commit: 8fd25114deb2454f8a95371a1c40079f30430c50
+    :git: https://github.com/xmartlabs/XLForm.git
+
+SPEC CHECKSUMS:
+  google-plus-ios-sdk: bb7b918c2ee0d5f5e389c4fddc06d71995481f67
+  XLForm: c87bc94f769f52ce32793282d72d2fb15d0d5638
+
+COCOAPODS: 0.35.0

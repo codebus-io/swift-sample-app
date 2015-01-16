@@ -7,14 +7,43 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    lazy var cdstore: CoreDataStore = {
+        let cdstore = CoreDataStore()
+        return cdstore
+        }()
+    
+    lazy var cdh: CoreDataHelper = {
+        let cdh = CoreDataHelper()
+        return cdh
+        }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        if let loggedIn = NSUserDefaults.standardUserDefaults().stringForKey("loggedIn") {
+            
+        } else {
+            dispatch_after(3, dispatch_get_main_queue(), { () -> Void in
+                NSNotificationCenter.defaultCenter().postNotificationName("AuthenticationRequired", object: nil)
+            })
+        }
+        
+        let navigationBarAppearance:UINavigationBar = UINavigationBar.appearance()
+        
+        navigationBarAppearance.backIndicatorImage = UIImage(named: "navbar-back")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        navigationBarAppearance.backIndicatorTransitionMaskImage = UIImage(named: "navbar-back")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        
+        navigationBarAppearance.tintColor = UIColor(red: 47/255.0, green: 47/255.0, blue: 47/255.0, alpha: 0.9)
+        
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        UIApplication.sharedApplication().statusBarHidden = false
+        
         // Override point for customization after application launch.
         return true
     }
@@ -25,8 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        self.cdh.saveContext()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -38,9 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        self.cdh.saveContext()
     }
-
-
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject?) -> Bool {
+        // handle Google+ auth URL
+        return GPPURLHandler.handleURL(url, sourceApplication: sourceApplication, annotation: annotation)
+    }
 }
 
